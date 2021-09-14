@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>Welcome</title>
+		<script type="text/javascript">
+		  	var username = prompt("What's your name?", "Guest")
+		  	while (username == null || username == "") {
+		  		username = prompt("What's your name?", "Guest")
+			  }
+		  	fetch(`http://localhost:8080/welcome`, {
+		  		method: "POST",
+		  		headers: {
+		  			"Content-Type": "application/json"
+		  		},
+		  		body: `${username}`
+		  	})
+		  	sessionStorage.setItem("user", username)
+		</script>
+	</head>
+	<body>
+	<div>
+		<h2>Join A Channel</h2>
+		<form action="" method="post">
+		<hr>
+			<div th:each="channel : ${channels}">
+				<a th:href="@{/channels/{channelId}/(channelId=${channel.channelId})}">[[${channel.channelName}]]</a>
+			</div>
+		</form>
+		</div>
+	</body>
+</html>
