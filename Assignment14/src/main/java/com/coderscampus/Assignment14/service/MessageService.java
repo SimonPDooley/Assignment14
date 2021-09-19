@@ -20,17 +20,22 @@ public class MessageService {
 	@Autowired
 	UserRepository userRepo;
 
-	public void sendMessage(User user) {
-		Set<User> users = userRepo.getUsers();
-		messageRepo.saveMessage(user, users);
+	public void sendMessage(Message message) {
+		List<User> users = userRepo.findAll();
 		
+		List<Message> messages = messageRepo.findAll();
+		
+
+ 	//	for(User existingUser : users) { 
+		//	if(existingUser.getUsername().equals(message.getUser())) { 
+				messages.add(message);
+				messageRepo.saveAll(messages);
+		//	}
+	//	}
 	}
 
 	public List<Message> getMessages() {
-		List<Message> messages = messageRepo.getAllMessages();
-		return messages;
+			List<Message> messages =  messageRepo.findAll();
+			return messages;
 	}
-	
-	
-
 }

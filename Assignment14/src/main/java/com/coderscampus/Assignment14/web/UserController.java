@@ -1,6 +1,6 @@
 package com.coderscampus.Assignment14.web;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.coderscampus.Assignment14.domain.Channel;
-import com.coderscampus.Assignment14.domain.User;
 import com.coderscampus.Assignment14.service.ChannelService;
 import com.coderscampus.Assignment14.service.UserService;
 
@@ -26,7 +25,7 @@ public class UserController {
 	
 	@GetMapping("/welcome")
 	public String getCreateUser (ModelMap model) {
-		Set<Channel>channels = channelService.getGeneralChannel();
+		List<Channel>channels = channelService.getChannels();
 		
 		//model.put("user", new User());
 		model.put("channels", channels);

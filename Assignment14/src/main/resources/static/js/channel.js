@@ -1,17 +1,16 @@
 var username = sessionStorage.getItem("user")
 var message = document.querySelector("#message")
-
+var channel = sessionStorage.getItem("channel")
 
 addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
       console.log(username)
 		
-		var user = {
-		"userId": 1,
-		"username": username,
-		"messages": [
-					{"messageId": 1, "message": message.value, "userId": 1}
-				  ]	
+		var userMessage = {
+		"messageId": 1,
+		"message": message.value,
+		"user": username,
+		"channel": null
 		}
 		
 	fetch(`http://localhost:8080/sendMessage`, {
@@ -19,7 +18,7 @@ addEventListener("keypress", function (e) {
 		headers: {
 			"Content-Type": "application/json"
 		},
-		body: JSON.stringify(user)
+		body: JSON.stringify(userMessage)
 	})
 	.then((response) => response.json())
 	.then((data) => {
@@ -33,24 +32,24 @@ function eraseText() {
     document.getElementById("message").value = "";
 }
 
+var ul = document.querySelector('#messages');
+//var ul = sessionStorage.getItem("messages")
+
+
 async function getMessages() {
-  let response = await fetch("/getMessages");
+fetch(`http://localhost:8080/getMessages`).then(function (response){
+		return response.json()
+		}).then(function (obj){
+			console.log(obj)
+			ul = obj
+			//sessionStorage.setItem("messages", ul)
 
-  if (response.status == 502) {
+		}).catch(function (error){
+			console.error('Something went wrong')
+			console.error(error)
+		})	
 
+    await new Promise(resolve => setTimeout(resolve, 2000));
     await getMessages();
-  } else if (response.status != 200) {
-  
-    showMessage(response.statusText);
-
-    await new Promise(resolve => setTimeout(resolve, 500));
-    await getMessages();
-  } else {
- 
-    let message = await response.text();
-
-    await getMessages();
-  }
 }
-
-getMessages();
+getMessages()

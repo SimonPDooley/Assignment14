@@ -1,10 +1,10 @@
 package com.coderscampus.Assignment14.web;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,27 +22,38 @@ public class MessageController {
 	
 	@PostMapping("/sendMessage")
 	@ResponseBody
-	public boolean postSendMessage (@RequestBody User user) {
+	public boolean postSendMessage (@RequestBody Message message) {
 		
-		List<Message> messages = messageService.getMessages();
-		System.out.println(user.getUsername() +": "+ user.getMessages().get(0).getMessage());
-		for(Message message: messages) {
-			System.out.println(message.getMessage());
-		}
+		messageService.sendMessage(message);
+		
 
-		messageService.sendMessage(user);
-		
+		//List<Message> messages = messageService.getMessages();
+		System.out.println(message.getUser() +": "+ message.getMessage());
+
 		return true;
 	}
 	
 	@GetMapping("/getMessages")
 	@ResponseBody
-	public boolean getMessages (ModelMap model) {
-		
+	public List<Message> getMessages () {
 		List<Message> messages = messageService.getMessages();
-		model.put("messages", messages);
+
+		//System.out.println(user.getUsername() +": "+ user.getMessages().get(0).getMessage());
+
+		Message message2 = new Message();
+		message2.setMessage("qwe21d");
+		message2.setMessageId(3);
+		message2.setUser("goober");
 		
-		return true;
+		Message message1 = new Message();
+		message1.setMessage("asdasd");
+		message1.setMessageId(4);
+		message1.setUser("Bagool");
+		messages.add(message1);
+		messages.add(message2);
+		
+		return messages;
+	
 	}
 
 }

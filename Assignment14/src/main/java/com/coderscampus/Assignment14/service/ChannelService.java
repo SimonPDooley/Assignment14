@@ -1,7 +1,7 @@
 package com.coderscampus.Assignment14.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,25 @@ public class ChannelService {
 	@Autowired
 	ChannelRepository channelRepo;
 
-	public Set<Channel> getGeneralChannel() {
-		Set<Channel> channels = channelRepo.CreateChannelList();
-		return channels;
+	public List<Channel> getChannels() {
+		
+		List<Channel> channels = new ArrayList<Channel>();
+		
+		if(channelRepo.count() > 0){
+			channels = channelRepo.findAll();
+			return channels;
+		}
+		else {
+			Channel generalChannel = new Channel();
+			generalChannel.setChannelName("General");
+			channels.add(generalChannel);
+			channelRepo.save(generalChannel);
+			return channels;
+		}
 	}
 
 	public Channel findById(Channel channel) {
-			channel = channelRepo.findById(channel);
+		channel = channelRepo.getById(channel.getChannelId());
 		return channel;
 	}
 
