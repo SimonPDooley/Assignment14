@@ -24,10 +24,10 @@ public class MessageService {
 		List<User> users = userRepo.findAll();
 		
 		List<Message> messages = messageRepo.findAll();
-		
 
  	//	for(User existingUser : users) { 
 		//	if(existingUser.getUsername().equals(message.getUser())) { 
+		message.setMessageId(messages.size()+1);
 				messages.add(message);
 				messageRepo.saveAll(messages);
 		//	}

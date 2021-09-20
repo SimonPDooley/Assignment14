@@ -40,7 +40,7 @@ public class MessageController {
 
 		//System.out.println(user.getUsername() +": "+ user.getMessages().get(0).getMessage());
 
-		Message message2 = new Message();
+		/*Message message2 = new Message();
 		message2.setMessage("qwe21d");
 		message2.setMessageId(3);
 		message2.setUser("goober");
@@ -50,7 +50,7 @@ public class MessageController {
 		message1.setMessageId(4);
 		message1.setUser("Bagool");
 		messages.add(message1);
-		messages.add(message2);
+		messages.add(message2);*/
 		
 		return messages;
 	

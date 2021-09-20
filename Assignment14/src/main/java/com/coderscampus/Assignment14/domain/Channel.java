@@ -21,7 +21,6 @@ public class Channel {
 		
 	
 		@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name = "channels")
 		public long getChannelId() {
 			return channelId;
 		}
@@ -35,13 +34,11 @@ public class Channel {
 			this.channelName = channelName;
 		}
 		
-		@OneToMany(mappedBy = "channel",fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+		@OneToMany(mappedBy = "message")
 		public Set<Message> getMessages() {
 			return messages;
 		}
 		public void setMessages(Set<Message> messages) {
 			this.messages = messages;
-		}
-		
-		
+		}	
 }

@@ -1,6 +1,7 @@
 var username = sessionStorage.getItem("user")
 var message = document.querySelector("#message")
 var channel = sessionStorage.getItem("channel")
+let messageList = document.querySelector(".message-list")
 
 addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
@@ -29,27 +30,29 @@ addEventListener("keypress", function (e) {
 })
 
 function eraseText() {
-    document.getElementById("message").value = "";
+    document.getElementById("message").value = ""
 }
-
-var ul = document.querySelector('#messages');
-//var ul = sessionStorage.getItem("messages")
-
 
 async function getMessages() {
 fetch(`http://localhost:8080/getMessages`).then(function (response){
 		return response.json()
-		}).then(function (obj){
-			console.log(obj)
-			ul = obj
-			//sessionStorage.setItem("messages", ul)
+		}).then(function (allMessages){
+			//console.log(allMessages)
+			var updatedMessages = ""
+			for (eachMessage of allMessages){
+				console.log(eachMessage.message)
+				updatedMessages +=  eachMessage.user +": " + eachMessage.message + '</br>'
+			}
+		
+			messageList.innerHTML = updatedMessages
+
 
 		}).catch(function (error){
 			console.error('Something went wrong')
 			console.error(error)
 		})	
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     await getMessages();
 }
 getMessages()
