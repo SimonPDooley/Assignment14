@@ -2,18 +2,23 @@
 <html xmlns:th="http://thymeleaf.org">
 	<head>
 		<title>[[${channel.channelName}]]</title>
+		<script type="text/javascript">
+		if (!sessionStorage.isNewSession){
+			location.href = "http://localhost:8080/welcome";
+		}
+		</script>
 	</head>
 	<body>
-    <div>
-   		<ul class="message-list"></ul>
-    </div>
-     <!--   <div id="messages" th:each="message : ${messages}">
-            <span th:text="${message.user}"> user </span>
-            <span th:text="${message.message}"> message </span>
-        </div> --> 
-	<div>
-		<textarea rows = "3" cols = "30" name = "message" id="message"></textarea><br>
+		<div id="channelMessages" style="display: none">[[${channel.messages}]]</div>
+		<div id="channelID" style="display: none">[[${channel.channelId}]]</div>
+		<span id="channel" style="font-weight:bold; font-size:24px">[[${channel.channelName}]]</span><span style="font-weight:bold; font-size:24px"> Channel</span>
+    	<div>
+   			<ul class="message-list"></ul>
+    	</div>
+		<div>
+			<textarea rows = "2" cols = "30" name = "message" id="message"></textarea><br>
 		</div>
-	<script type="text/javascript" src="/js/channel.js"></script>
+		<a th:href="@{/welcome}">Back</a>
+		<script type="text/javascript" src="/js/channel.js"></script>
 	</body>
 </html>

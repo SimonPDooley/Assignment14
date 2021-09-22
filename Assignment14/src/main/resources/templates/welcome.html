@@ -3,6 +3,7 @@
 	<head>
 		<title>Welcome</title>
 		<script type="text/javascript">
+		if (!sessionStorage.isNewSession){
 		  	var username = prompt("What's your name?", "Guest")
 		  	while (username == null || username == "") {
 		  		username = prompt("What's your name?", "Guest")
@@ -14,18 +15,29 @@
 		  		},
 		  		body: `${username}`
 		  	})
-		  	sessionStorage.setItem("user", username)
+		sessionStorage.setItem("user", username)
+		}
+		sessionStorage.isNewSession = true
 		</script>
 	</head>
 	<body>
 	<div>
 		<h2>Join A Channel</h2>
-		<form action="" method="post">
+		<form action="@{/welcome}" method="post">
 		<hr>
 			<div th:each="channel : ${channels}">
 				<a th:href="@{/channels/{channelId}/(channelId=${channel.channelId})}">[[${channel.channelName}]]</a>
 			</div>
 		</form>
 		</div>
+		<hr>
+		<form action="/newChannel" method="post">
+			<div>
+					<input type="text" th:field="${channel.channelName}"/>
+			</div>
+			<div>
+				<input type="submit" value="Create Channel" />
+			</div>
+		</form>
 	</body>
 </html>

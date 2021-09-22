@@ -1,6 +1,5 @@
 package com.coderscampus.Assignment14.domain;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,11 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity // Class name = User, DB Table name = user
+@Entity
 @Table(name = "users")
 public class User {
 	
@@ -42,5 +40,4 @@ public class User {
 	public void setMessages(Set<Message> messages) {
 		this.messages = messages;
 	}
-	
 }

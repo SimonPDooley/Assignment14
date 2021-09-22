@@ -13,7 +13,6 @@ import com.coderscampus.Assignment14.domain.Channel;
 import com.coderscampus.Assignment14.service.ChannelService;
 import com.coderscampus.Assignment14.service.UserService;
 
-
 @Controller
 public class UserController {
 
@@ -26,20 +25,14 @@ public class UserController {
 	@GetMapping("/welcome")
 	public String getCreateUser (ModelMap model) {
 		List<Channel>channels = channelService.getChannels();
-		
-		//model.put("user", new User());
+		model.put("channel", new Channel());
 		model.put("channels", channels);
-		
 		return "welcome";
 	}
 	
 	@PostMapping("/welcome")
 	public String postCreateUser (@RequestBody String username) {
-		
-		System.out.println(username);
 		userService.addUser(username);
-		
 		return "redirect:/welcome";
 	}
-	
 }

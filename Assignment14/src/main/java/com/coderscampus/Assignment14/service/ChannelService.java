@@ -14,11 +14,11 @@ public class ChannelService {
 	
 	@Autowired
 	ChannelRepository channelRepo;
-
+	
 	public List<Channel> getChannels() {
 		
 		List<Channel> channels = new ArrayList<Channel>();
-		
+		//Create a General and Private Channel if there are no channels
 		if(channelRepo.count() > 0){
 			channels = channelRepo.findAll();
 			return channels;
@@ -28,13 +28,22 @@ public class ChannelService {
 			generalChannel.setChannelName("General");
 			channels.add(generalChannel);
 			channelRepo.save(generalChannel);
+			Channel privateChannel = new Channel();
+			privateChannel.setChannelName("Private");
+			channels.add(privateChannel);
+			channelRepo.save(privateChannel);
 			return channels;
 		}
 	}
 
-	public Channel findById(Channel channel) {
+	public Channel findChannelById(Channel channel) {
 		channel = channelRepo.getById(channel.getChannelId());
 		return channel;
 	}
 
+	public void addChannel(String channelName) {
+		Channel channel = new Channel();
+		channel.setChannelName(channelName);
+		channelRepo.save(channel);
+	}
 }

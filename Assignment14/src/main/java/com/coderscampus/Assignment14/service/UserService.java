@@ -16,7 +16,5 @@ public class UserService {
 		User user = new User();
 		user.setUsername(username);
 		userRepo.save(user);
-		
 	}
-
 }
